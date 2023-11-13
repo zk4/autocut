@@ -1,0 +1,21 @@
+# Called when you first enter the directory (or its children)
+autosrc_enter() {
+
+	#replace pwd / to _
+	environment_name=_Users_zk_git_aiPrj_autocut-3.10.12
+
+	if conda info --envs | grep -q "\\b$environment_name\\b"; then
+	    echo ""
+	else
+	    conda create -y -n "$environment_name" python=3.10.12
+			conda activate $environment_name
+			conda install pip -y
+			pip install pynvim
+	fi
+
+	conda activate $environment_name
+}
+
+autosrc_exit() {
+	conda deactivate
+}

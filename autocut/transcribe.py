@@ -139,6 +139,8 @@ class Transcribe:
             return res
 
     def _save_srt(self, output, transcribe_results):
+        import rich
+        rich.print(transcribe_results)
         subs = []
         # whisper sometimes generate traditional chinese, explicitly convert
         cc = opencc.OpenCC("t2s")
@@ -165,8 +167,8 @@ class Transcribe:
                 if start > end:
                     continue
                 # mark any empty segment that is not very short
-                if start > prev_end + 1.0:
-                    _add_sub(prev_end, start, "< No Speech >")
+                #  if start > prev_end + 1.0:
+                #      _add_sub(prev_end, start, "< No Speech >")
                 _add_sub(start, end, s["text"])
                 prev_end = end
 
